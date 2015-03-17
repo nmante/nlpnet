@@ -5,8 +5,8 @@ from distutils.extension import Extension
 try:
     import numpy as np
 except ImportError:
-    print "You don't seem to have NumPy installed. Please get a"
-    print "copy from www.numpy.org and install it"
+    print("You don't seem to have NumPy installed. Please get a")
+    print("copy from www.numpy.org and install it")
     sys.exit(1)
 
 def readme():

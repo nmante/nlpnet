@@ -12,7 +12,7 @@ import os
 import re
 import logging
 import numpy as np
-import cPickle
+import pickle
 from collections import defaultdict
 
 import nlpnet
@@ -90,7 +90,7 @@ def read_w2e_embeddings(filename):
     Load the feature matrix used by word2embeddings.
     """
     with open(filename, 'rb') as f:
-        model = cPickle.load(f)
+        model = pickle.load(f)
     matrix = model.get_word_embeddings()
 
     # remove <s>, </s> and <padding>
@@ -106,7 +106,7 @@ def read_polyglot_embeddings(filename):
     Read vocabulary and embeddings from a file from polyglot.
     """
     with open(filename, 'rb') as f:
-        data = cPickle.load(f)
+        data = pickle.load(f)
     
     # first four words are UNK, <s>, </s> and padding
     # we discard <s> and </s>

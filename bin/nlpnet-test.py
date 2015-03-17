@@ -18,7 +18,7 @@ import argparse
 import re
 import timeit
 import unicodedata as ud
-from itertools import izip
+
 import numpy as np
 from collections import Counter, defaultdict
 
@@ -105,7 +105,7 @@ def sentence_precision(network_tags, gold_tags, gold_tag_dict, network_tag_dict)
     correct_args = []
     predicted_args = []
     
-    for net_tag, gold_tag in izip(network_tags, gold_tags):
+    for net_tag, gold_tag in zip(network_tags, gold_tags):
         net_tag = network_tag_dict[net_tag]
         gold_tag = gold_tag_dict[gold_tag]
         
@@ -152,7 +152,7 @@ def join_2_steps(boundaries, arguments):
     """
     answer = []
     
-    for pred_boundaries, pred_arguments in izip(boundaries, arguments):
+    for pred_boundaries, pred_arguments in zip(boundaries, arguments):
         cur_arg = ''
         pred_answer = []
         
@@ -192,7 +192,7 @@ def sentence_recall(network_tags, gold_tags, gold_tag_dict, network_tag_dict):
     correct_args = []
     existing_args = []
     
-    for net_tag, gold_tag in izip(network_tags, gold_tags):
+    for net_tag, gold_tag in zip(network_tags, gold_tags):
         net_tag = network_tag_dict[net_tag]
         gold_tag = gold_tag_dict[gold_tag]
         
@@ -246,14 +246,14 @@ def evaluate_srl_classify(no_repeat=False, gold_file=None):
     hits = 0
     total_args = 0
     
-    for sentence, tags, predicates, args in izip(r.sentences, r.tags, r.predicates, r.arg_limits):
+    for sentence, tags, predicates, args in zip(r.sentences, r.tags, r.predicates, r.arg_limits):
         
         # the answer includes all predicates
         answer = nn.tag_sentence(sentence, predicates, args, allow_repeats=not no_repeat)
         
-        for pred_answer, pred_gold in izip(answer, tags):
+        for pred_answer, pred_gold in zip(answer, tags):
         
-            for net_tag, gold_tag in izip(pred_answer, pred_gold):
+            for net_tag, gold_tag in zip(pred_answer, pred_gold):
                 if net_tag == gold_tag:
                     hits += 1
             
@@ -404,10 +404,10 @@ def evaluate_srl_predicates(gold_file):
     tp, fp, tn, fn = 0, 0, 0, 0
     
     # for each sentence, tags are 0 at non-predicates and 1 at predicates
-    for sent, tags in izip(reader.sentences, reader.tags):
+    for sent, tags in zip(reader.sentences, reader.tags):
         answer = nn.tag_sentence(sent)
         
-        for net_tag, gold_tag in izip(answer, tags):
+        for net_tag, gold_tag in zip(answer, tags):
             if gold_tag == 1:
                 if net_tag == gold_tag: tp += 1
                 else: fn += 1
@@ -452,7 +452,7 @@ def evaluate_srl_identify(gold_file):
 
     srl_reader.codify_sentences()
     
-    for sent, preds, sent_tags in izip(srl_reader.sentences, srl_reader.predicates, srl_reader.tags):
+    for sent, preds, sent_tags in zip(srl_reader.sentences, srl_reader.predicates, srl_reader.tags):
         
         # one answer for each predicate
         answers = nn.tag_sentence(sent, preds)

@@ -8,7 +8,7 @@ to stdout.
 
 import argparse
 import logging
-from itertools import izip
+
 
 import nlpnet
 import nlpnet.utils as utils

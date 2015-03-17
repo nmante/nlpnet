@@ -57,7 +57,7 @@ class WordDictionary(dict):
             size = len(words)
         
         # set all words in the dictionary
-        for word, num in itertools.izip(words, xrange(size)):
+        for word, num in zip(words, xrange(size)):
             self[word] = num
         
         # if the given words include one of the the rare or padding symbols, don't replace it

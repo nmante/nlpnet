@@ -8,3 +8,4 @@ nlpnet/network.pyd
 build
 dist
 MANIFEST
+files.txt

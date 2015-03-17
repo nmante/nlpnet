@@ -5,12 +5,12 @@ Class for dealing with SRL data.
 """
 
 from collections import defaultdict
-import cPickle
+import pickle
 import logging
 import re
 import os
 import numpy as np
-from itertools import izip
+
 
 from .. import attributes
 from .. import utils
@@ -351,7 +351,7 @@ class SRLReader(reader.TaggerReader):
         
         if self.md.use_pos:
             with open(self.md.paths['pos_tag_dict']) as f:
-                pos_dict = cPickle.load(f)
+                pos_dict = pickle.load(f)
                 
             pos_def_dict = defaultdict(lambda: pos_dict['other'])
             pos_def_dict.update(pos_dict)
@@ -360,7 +360,7 @@ class SRLReader(reader.TaggerReader):
         
         if self.md.use_chunk:
             with open(self.md.paths['chunk_tag_dict']) as f:
-                chunk_dict = cPickle.load(f)
+                chunk_dict = pickle.load(f)
             
             chunk_def_dict = defaultdict(lambda: chunk_dict['O'])
             chunk_def_dict.update(chunk_dict)
@@ -394,7 +394,7 @@ class SRLReader(reader.TaggerReader):
         new_sentences = []
         self.tags = []
         
-        for (sent, props), preds in izip(self.sentences, self.predicates):
+        for (sent, props), preds in zip(self.sentences, self.predicates):
             new_sent = []
             sentence_tags = []
             
